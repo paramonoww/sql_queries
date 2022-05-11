@@ -1,3 +1,4 @@
+-- 1
 SELECT
        (CASE
            WHEN invested_companies>=100 THEN 'high_activity'
@@ -10,7 +11,7 @@ GROUP BY activity
 ORDER BY ROUND(AVG(investment_rounds)) ASC;
 
 
-
+-- 2
 SELECT
         fund.country_code,
         MIN(fund.invested_companies),
@@ -24,7 +25,7 @@ ORDER BY AVG(fund.invested_companies) DESC
 LIMIT 10;
 
 
-
+-- 3
 SELECT name, COUNT(DISTINCT instituition)
 FROM company INNER JOIN people ON company.id = people.company_id
              INNER JOIN education ON people.id = education.person_id
@@ -33,7 +34,7 @@ ORDER BY COUNT(DISTINCT instituition) DESC
 LIMIT 5;
 
 
-
+-- 4
 SELECT DISTINCT people.id, instituition
 FROM people INNER JOIN education ON people.id = education.person_id
             INNER JOIN company ON people.company_id = company.id
@@ -42,7 +43,7 @@ WHERE company.id IN (SELECT DISTINCT company.id
             WHERE status = 'closed' AND is_first_round = is_last_round AND is_first_round = 1);
 
 
-
+-- 5
 SELECT AVG(counter)
 FROM (SELECT DISTINCT people.id, COUNT(instituition) as counter
 FROM people INNER JOIN education ON people.id = education.person_id
@@ -53,7 +54,7 @@ WHERE company.id IN (SELECT DISTINCT company.id
 GROUP BY people.id) as wd;
 
 
-
+-- 6
 SELECT fund.name as name_of_fund,
        company.name as name_of_company,
        raised_amount as amount
@@ -63,7 +64,7 @@ FROM investment INNER JOIN company ON investment.company_id = company.id
 WHERE company.milestones > 6 AND EXTRACT(YEAR FROM CAST(funded_at AS timestamp)) BETWEEN 2012 AND 2013;
 
 
-
+-- 7
 SELECT ac.name,
        a.price_amount,
        ca.name,
@@ -77,7 +78,7 @@ ORDER BY a.price_amount DESC, ca.name
 LIMIT 10;
 
 
-
+-- 8
 WITH
 t1 AS (SELECT country_code, AVG(funding_total) as lol1
       FROM company
